@@ -1,0 +1,19 @@
+{
+  "name": "humble-beginnings",
+  "version": "0.0.0",
+  "description": "Our first step to create a simple form using react",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "reactjs"
+  ],
+  "author": "Hasan Jamil",
+  "license": "MIT",
+  "dependencies": {
+    "formik": "^2.4.6",
+    "react": "^19.0.0",
+    "react-scripts": "^5.0.1"
+  }
+}
