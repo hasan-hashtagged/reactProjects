@@ -2,9 +2,10 @@
   "name": "humble-beginnings",
   "version": "0.0.0",
   "description": "Our first step to create a simple form using react",
-  "main": "src/index.js",
+  "main": "/src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "react-scripts start"
   },
   "keywords": [
     "reactjs"
@@ -14,6 +15,20 @@
   "dependencies": {
     "formik": "^2.4.6",
     "react": "^19.0.0",
-    "react-scripts": "^5.0.1"
+    "react-dom": "^19.0.0",
+    "react-scripts": "^5.0.1",
+    "yup": "^1.6.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
