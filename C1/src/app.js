@@ -1,10 +1,33 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { useRef } from 'react';
 import * as Yup from 'yup';
 
 const SignUpSchema = Yup.object().shape({
     firstName: Yup.string().required('This is required field'),
     lastName: Yup.string().required('This is required field')
 });
+
+function Uncontrolled() {
+    const inputRef = useRef(null);
+    const focusInput = () => {
+        inputRef.current.focus();
+    };
+    const handleSubmit =  (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const inputVal = formData.get('email');
+
+        alert(inputVal);
+    }
+    return (
+        <form onSubmit={handleSubmit}>
+            <input type='text' ref={inputRef} name='email' />
+            <button onClick={focusInput}>Focus Input</button>
+            <button type="submit">Send</button>
+        </form>
+    );
+}
 
 export default function App() {
     return (
@@ -47,6 +70,7 @@ export default function App() {
                     </Form>
                 )}
             </Formik>
+            <Uncontrolled />
         </div>
     );
 }
