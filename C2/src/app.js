@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const PRODUCTS = [
     {category: "Fruits", price: "$1", stocked: true, name: "Apple"},
     {category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit"},
@@ -31,11 +33,23 @@ function ProductRow({ product }) {
     );    
 }
 
-function ProductTable({ products }) {
+function ProductTable({ products, filterText, inStock }) {
     let rows = [];
     let lastCategory = null;
 
     products.forEach((product) => {
+        if (
+            product.name.toLowerCase().indexOf(
+                filterText.toLowerCase()
+            ) === -1 
+        ) {
+            return;
+        }
+
+        if (inStock && !product.stocked) {
+            return
+        }
+
         if (lastCategory != product.category) {
             rows.push(
                 <ProductCategoryRow 
@@ -66,12 +80,19 @@ function ProductTable({ products }) {
     );
 }
 
-function SearchBar() {
+function SearchBar({ filterText, inStock, onFilterTextChange, onStockOptionChange }) {
     return (
         <form>
-            <input type="text" placeholder="Search Product..." />
+            <input 
+                type="text"
+                value={filterText} 
+                placeholder="Search Product..."
+                onChange={(e) => onFilterTextChange(e.target.value)} />
             <label>
-                <input type="checkbox" />
+                <input 
+                    type="checkbox" 
+                    checked={inStock}
+                    onChange={(e) => onStockOptionChange(e.target.checked)} />
                 {' '}
                 Only show stocked products.
             </label>
@@ -80,12 +101,19 @@ function SearchBar() {
 }
 
 function FilterableProducts({ products }) {
+    const [filterText, setFilterText] = useState('');
+    const [inStock, setInStock] = useState(false);
     return (
         <>
-            <SearchBar />
+            <SearchBar 
+                filterText={filterText}
+                inStock={inStock} 
+                onFilterTextChange={setFilterText} 
+                onStockOptionChange={setInStock} />
             <ProductTable
-                products={products}
-            />
+                products={products} 
+                filterText={filterText}
+                inStock={inStock} />
         </>
     );
 }

@@ -26,3 +26,33 @@ want to recieve from the server.
 We can implement the components in "top-down" or "bottom-up" approach. If the
 app is simple enough, we can easily use "top-down" approach. Otherwise, we can
 always go with the "bottom-up" approach.
+
+## Find minimal but complete representation of UI
+Adding the state so that users can change the data-model. There should be a
+minimal set of states keeping in mind "DRY(don't repeat yourself)".
+-> If it doesn't change over time => Not a state.
+-> Passed from parent via `props` => Not a state.
+-> computable based on existing states or `props` of componenet => Not a state.
+
+In our case, `SearchBar` and `CheckBox` are state as they change over users'
+interaction and cannot be computed.
+
+## Identify where the state should live
+React uses one-way data flow (parent to child component).
+
+For each state:
+-> Identify the components that use the state.
+-> Find latest common ancestor.
+-> We can either keep it at LCA, or component above that or create a component
+solely to manage the state (if it's complicated enough).
+
+In our case, the states are in `searchBar` component and are also used by 
+`ProductTable`. Thus, we keep in LCA, i.e. `FlterableProduct`.
+
+Create the states and pass it respective components as `prop`.
+
+## Add inverse data-flow
+To have the interactivety, we add the `handlers` to handle the change. Since
+the `state` belongs to `FilterableProduct`, only it can call `set` state
+calls. So, we pass it as `prop` to children components. and add `onChange` to
+the `input` fields.
